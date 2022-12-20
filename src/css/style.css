@@ -1,0 +1,23 @@
+body {
+    background-color: rgb(0, 217, 0);
+    font-family: "Fira Code", monospace;
+}
+
+.start-button {
+    background-color: rgb(255, 213, 0);
+    color: rgb(0, 0, 0);
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    padding: 30px 100px;
+    margin: 20px;
+    cursor: pointer;
+    transition: 0.75s;
+}
+
+.start-button:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 213, 0);
+    transform: scale(1.25);
+}

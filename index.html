@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Kamen Papier Noznice </title>
+
+    <link rel="stylesheet" href="src/css/bootstrap.css">
+    <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body class="container-fluid">
+    <section class="container d-flex justify-content-center mt-4">
+
+        <div class="row">
+
+            <div class="col-12 d-flex justify-content-center">
+
+                <h1 class="h1"> Kamen Papier Noznice </h1>
+
+            </div>
+
+            <div class="col-12 d-flex justify-content-center py-3">
+
+                <button class="start-button" onclick="startGame()">
+                    Zacni hrat!
+                </button>
+
+            </div>
+
+            <div class="col-6 d-flex justify-content-end pt-3">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <p class="h4"> Player score </p>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <p id="player-score" class="h3 fw-bold text-primary"> 0 </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 d-flex justify-content-start pt-3">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <p class="h4"> Computer score </p>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <p id="computer-score" class="h3 fw-bold text-danger"> 0 </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 d-flex justify-content-start pt-3 px-2">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h4 class="h4 text-primary"> Player Usage History </h4>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <ul class="text-end list-unstyled">
+                            <li class=""> <span class=""> Papier </span> : <span id="player-papier-usage"> 0 </span> </li>
+                            <li class=""> <span class=""> Kamen </span>  : <span id="player-kamen-usage"> 0 </span> </li>
+                            <li class=""> <span class=""> Noznice </span> : <span id="player-noznice-usage"> 0 </span> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 d-flex justify-content-end pt-3 px-2">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h4 class="h4 text-danger"> Computer Usage History </h4>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <ul class="text-end list-unstyled">
+                            <li class=""> <span class=""> Papier </span> : <span id="computer-papier-usage"> 0 </span> </li>
+                            <li class=""> <span class=""> Kamen </span>  : <span id="computer-kamen-usage"> 0 </span> </li>
+                            <li class=""> <span class=""> Noznice </span> : <span id="computer-noznice-usage"> 0 </span> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</body>
+<script src="src/main.js"></script>
+</html>
