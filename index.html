@@ -21,18 +21,19 @@
 
             </div>
 
-            <div class="col-12 d-flex justify-content-center py-3">
-
-                <button class="start-button" onclick="startGame()">
-                    Zacni hrat!
-                </button>
-
+            <div id="player_name_input_div" class="col-12 d-flex justify-content-center">
+                <div class="d-flex justify-content-end">
+                    <label class="text-center" onclick="playerNameInput.enable()">
+                        <span id="player_name_input_heading" class="text-decoration-line-through"> Player name: <br> </span>
+                        <input disabled class="rounded-5 border-1 border-primary bg-transparent" type="text" name="player_name" id="player_name">
+                    </label>
+                </div>
             </div>
 
-            <div class="col-6 d-flex justify-content-end pt-3">
+            <div id="player-score-div" class="col-6 d-flex justify-content-end pt-3">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
-                        <p class="h4"> Player score </p>
+                        <p id="player_score_heading" class="h4"> Player score </p>
                     </div>
                     <div class="col-12 d-flex justify-content-center">
                         <p id="player-score" class="h3 fw-bold text-primary"> 0 </p>
@@ -40,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="col-6 d-flex justify-content-start pt-3">
+            <div id="computer-score-div" class="col-6 d-flex justify-content-start pt-3">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
                         <p class="h4"> Computer score </p>
@@ -51,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="col-6 d-flex justify-content-start pt-3 px-2">
+            <div class="col-6 d-flex justify-content-center pt-3 px-2">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
                         <h4 class="h4 text-primary"> Player Usage History </h4>
@@ -66,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="col-6 d-flex justify-content-end pt-3 px-2">
+            <div class="col-6 d-flex justify-content-center pt-3 px-2">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
                         <h4 class="h4 text-danger"> Computer Usage History </h4>
@@ -79,6 +80,49 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center py-3">
+
+                <button class="start-button" onclick="toggleSelectionDiv(true)">
+                    Zacni hrat!
+                </button>
+
+            </div>
+
+            <div id="selection" class="col-12 py-3 rounded-5">
+
+                <div class="row d-flex align-items-center">
+
+                    <div class="col-12 text-center">
+                        <h2 class="h2"> Vyber si! </h2>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-center my-5">
+                        <button class="option border-0 rounded-pill h3 mx-5 p-5" onclick="new game('K')">
+                            Kamen
+                        </button>
+                        <button class="option border-0 rounded-pill h3 mx-5 p-5" onclick="new game('P')">
+                            Papier
+                        </button>
+                        <button class="option border-0 rounded-pill h3 mx-5 p-5" onclick="new game('N')">
+                            Noznice
+                        </button>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div id="history" class="col-12 py-3 justify-content-center text-center">
+
+                <h4 class="h4"> Win history: </h4>
+
+                <ul id="history_list" class="list-unstyled fw-bolder fs-3 my-3 text-uppercase">
+
+                </ul>
+
             </div>
 
         </div>

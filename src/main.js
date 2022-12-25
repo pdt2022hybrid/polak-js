@@ -1,143 +1,236 @@
-let playerScore = 0;
-let playerScoreElement = document.getElementById('player-score');
+document.getElementById('selection').style.display = 'none';
 
-let computerScore = 0;
-let computerScoreElement = document.getElementById('computer-score');
-
-// let kamenUsage = 0;
-// let kamenUsageElement = document.getElementById('kamen-usage');
-// let nozniceUsage = 0;
-// let nozniceUsageElement = document.getElementById('noznice-usage');
-// let papierUsage = 0;
-// let papierUsageElement = document.getElementById('papier-usage');
-
-let winHistory = [];
-let playerSelectionHistory = [];
-
-function startGame() {
-
-    if (playerScore > 0 || computerScore > 0)
-    {
-        alert('Hra zacina, sucasne skore je ' + playerScore + ' : ' + computerScore);
-        console.log('Hra zacina, sucasne skore je ' + playerScore + ' : ' + computerScore);
-    }
-    else
-    {
-        alert('Hra zacina');
-        console.log('Hra zacina');
-    }
-
-
-    let playerChoice = prompt('Teraz si vyber kamen(K), noznice(N) alebo papier(P)').toUpperCase();
-    let computerChoice = Math.random();
-    let gameResult = '';
-
-    // Computer choice
-    // <0.34 = Kamen
-    // <0.67 = Noznice
-    // <1 = Papier
-
-    if (computerChoice < 0.34) {
-        computerChoice = 'K';
-        if (playerChoice === 'K') {
-            gameResult = 'draw';
-        }
-        else if (playerChoice === 'N') {
-            gameResult = 'lose';
-        }
-        else if (playerChoice === 'P') {
-            gameResult = 'win';
-        }
-    }
-    else if (computerChoice <= 0.67) {
-        computerChoice = 'N';
-        if (playerChoice === 'K') {
-            gameResult = 'win';
-        }
-        else if (playerChoice === 'N') {
-            gameResult = 'draw';
-        }
-        else if (playerChoice === 'P') {
-            gameResult = 'lose';
-        }
+function toggleSelectionDiv(visibility) {
+    if (visibility) {
+        document.getElementById('selection').style.display = 'block';
     }
     else {
-        computerChoice = 'P';
+        document.getElementById('selection').style.display = 'none';
+    }
+}
+
+class playerNameInput {
+    static input = document.getElementById("player_name");
+
+    static enable() {
+        this.input.disabled = false;
+        this.input.focus();
+        this.setInputEvent();
+        document.getElementById('player_name_input_heading').classList.remove('text-decoration-line-through');
+    }
+
+    static setInputEvent() {
+        this.input.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                console.log("Enter pressed");
+                document.getElementById("player_name_input_div").classList.remove('d-flex');
+                document.getElementById("player_name_input_div").classList.add("d-none");
+
+                document.getElementById("player_score_heading").innerHTML= playerNameInput.input.value + ' (player) score';
+            }
+        });
+    }
+
+}
+
+class stats {
+    static playerScore = 0;
+    static computerScore = 0;
+
+    static increasePlayerScore() {
+        this.playerScore++;
+    }
+
+    static increaseComputerScore() {
+        this.computerScore++;
+    }
+
+    get playerScore() {
+        return this.playerScore.toString();
+    }
+
+    get computerScore() {
+        return this.computerScore.toString();
+    }
+}
+
+class winHistoryList {
+    static list = document.getElementById("history_list");
+    static listChildrenCount = 0;
+
+    static addWinHistoryItem(item) {
+        let li = document.createElement("li");
+        li.appendChild(document.createTextNode(item));
+        this.list.appendChild(li);
+
+        if (this.listChildrenCount % 2 === 0) {
+            li.classList.add("yellow");
+        }
+        else {
+            li.classList.add("black");
+        }
+
+        this.listChildrenCount++;
+    }
+}
+
+class winHistory {
+    static winHistory = [];
+    static playerSelectionHistory = [];
+}
+
+class usage {
+    static playerKamenUsage = 0;
+    static playerNozniceUsage = 0;
+    static playerPapierUsage = 0;
+
+    static computerKamenUsage = 0;
+    static computerNozniceUsage = 0;
+    static computerPapierUsage = 0;
+
+    static increasePlayerUsage(playerChoice) {
         if (playerChoice === 'K') {
-            gameResult = 'lose';
+            this.playerKamenUsage++;
         }
         else if (playerChoice === 'N') {
-            gameResult = 'win';
+            this.playerNozniceUsage++;
         }
         else if (playerChoice === 'P') {
-            gameResult = 'draw';
+            this.playerPapierUsage++;
         }
     }
 
-    playerSelectionHistory.push(playerChoice)
-    increasePlayerUsage(playerChoice);
-    increaseComputerUsage(computerChoice);
-
-    console.log('Hrac si vybral: ' + playerChoice);
-    console.log('Pocitac si vybral: ' + computerChoice);
-    console.log('Vysledok hry: ' + gameResult);
-
-    if (gameResult === 'win') {
-        increasePlayerScore();
-        winHistory.push('player');
-
-        alert('Vyhral si! (pocitac si vybral ' + computerChoice + ')');
-        console.log('Vyhral si! (pocitac si vybral ' + computerChoice + ')');
+    static increaseComputerUsage(computerChoice) {
+        if (computerChoice === 'K') {
+            this.computerKamenUsage++;
+        }
+        else if (computerChoice === 'N') {
+            this.computerNozniceUsage++;
+        }
+        else if (computerChoice === 'P') {
+            this.computerPapierUsage++;
+        }
     }
-    else if (gameResult === 'lose') {
-        increaseComputerScore();
-        winHistory.push('computer');
 
-        alert('Prehral si! (pocitac si vybral ' + computerChoice + ')');
-        console.log('Prehral si! (pocitac si vybral ' + computerChoice + ')');
+    get playerKamenUsage() {
+        return this.playerKamenUsage.toString();
     }
-    else {
-        alert('Remiza! (pocitac si vybral ' + computerChoice + ')');
-        console.log('Remiza! (pocitac si vybral ' + computerChoice + ')');
+
+    get playerPapierUsage() {
+        return this.playerPapierUsage.toString();
     }
-}
 
-function increasePlayerScore() {
-    playerScore++;
-    playerScoreElement.innerHTML = playerScore;
-
-    console.log('Score: ' + playerScore);
-    console.log('Score has icreased')
-}
-
-function increaseComputerScore() {
-    computerScore++;
-    computerScoreElement.innerHTML = computerScore;
-
-    console.log('Score: ' + computerScore);
-    console.log('Score has icreased')
-}
-
-function increasePlayerUsage(playerChoice) {
-    if (playerChoice === 'K') {
-        document.getElementById('player-kamen-usage').innerHTML = (parseInt(document.getElementById('player-kamen-usage').innerHTML) + 1).toString();
+    get playerNozniceUsage() {
+        return this.playerNozniceUsage.toString();
     }
-    else if (playerChoice === 'N') {
-        document.getElementById('player-noznice-usage').innerHTML = (parseInt(document.getElementById('player-noznice-usage').innerHTML) + 1).toString();
+
+    get computerKamenUsage() {
+        return this.computerKamenUsage.toString();
     }
-    else if (playerChoice === 'P') {
-        document.getElementById('player-papier-usage').innerHTML = (parseInt(document.getElementById('player-papier-usage').innerHTML) + 1).toString();
+
+    get computerPapierUsage() {
+        return this.computerPapierUsage.toString();
+    }
+
+    get computerNozniceUsage() {
+        return this.computerNozniceUsage.toString();
     }
 }
 
-function increaseComputerUsage(computerChoice) {
-    if (computerChoice === 'K') {
-        document.getElementById('computer-kamen-usage').innerHTML = (parseInt(document.getElementById('computer-kamen-usage').innerHTML) + 1).toString();
+class game {
+
+    getComputerChoice() {
+        let random = Math.random();
+
+        if (random < 0.34) {
+            return 'K';
+        }
+        else if (random <= 0.67) {
+            return 'P';
+        }
+        else {
+            return 'N';
+        }
     }
-    else if (computerChoice === 'N') {
-        document.getElementById('computer-noznice-usage').innerHTML = (parseInt(document.getElementById('computer-noznice-usage').innerHTML) + 1).toString();
+
+    determineWinner(playerChoice, computerChoice) {
+        if (playerChoice === computerChoice) {
+            return 'draw';
+        }
+        else if (playerChoice === 'K' && computerChoice === 'N') {
+            return 'player';
+        }
+        else if (playerChoice === 'N' && computerChoice === 'P') {
+            return 'player';
+        }
+        else if (playerChoice === 'P' && computerChoice === 'K') {
+            return 'player';
+        }
+        else {
+            return 'computer';
+        }
     }
-    else if (computerChoice === 'P') {
-        document.getElementById('computer-papier-usage').innerHTML = (parseInt(document.getElementById('computer-papier-usage').innerHTML) + 1).toString();
+
+    addToStats(winner) {
+        if (winner === 'player') {
+            stats.increasePlayerScore();
+        }
+        else if (winner === 'computer') {
+            stats.increaseComputerScore();
+        }
     }
+
+    addToHistory(winner) {
+        if (winner !== 'draw') {
+            winHistory.winHistory.push(winner);
+        }
+        winHistoryList.addWinHistoryItem(winner);
+    }
+
+    addToUsage(playerChoice, computerChoice) {
+        usage.increasePlayerUsage(playerChoice);
+        usage.increaseComputerUsage(computerChoice);
+    }
+
+    refresh() {
+
+        document.getElementById('player-score').innerHTML = stats.playerScore;
+        document.getElementById('computer-score').innerHTML = stats.computerScore;
+
+        document.getElementById('player-kamen-usage').innerHTML = usage.playerKamenUsage;
+        document.getElementById('player-papier-usage').innerHTML =usage.playerPapierUsage;
+        document.getElementById('player-noznice-usage').innerHTML = usage.playerNozniceUsage;
+
+        document.getElementById('computer-kamen-usage').innerHTML = usage.computerKamenUsage;
+        document.getElementById('computer-papier-usage').innerHTML = usage.computerPapierUsage;
+        document.getElementById('computer-noznice-usage').innerHTML = usage.computerNozniceUsage;
+
+    }
+
+    highlightWinner(winner) {
+        if (winner === 'player') {
+
+        }
+        else if (winner === 'computer') {
+
+        }
+        else {
+
+        }
+    }
+
+    constructor(playerChoice) {
+
+        let computerChoice = this.getComputerChoice();
+        let winner = this.determineWinner(playerChoice, computerChoice);
+
+        this.addToStats(winner);
+        this.addToHistory(winner);
+        this.addToUsage(playerChoice, computerChoice);
+
+        toggleSelectionDiv(false);
+        this.refresh();
+        this.highlightWinner(winner);
+    }
+
 }
